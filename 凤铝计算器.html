@@ -1,0 +1,1602 @@
+
+<!DOCTYPE html>
+  
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<html>
+  　<title>凤铝材料计算器</title>
+
+  <meta http-equiv="X-UA-Compatible" content="chrome=1"> 
+
+  <head>
+  <link href="css/styles.css" rel="stylesheet"> 
+<style type="text/css">
+			
+			body ,div ,thead{
+			background-color: #262949;color:#0080FF;
+           
+			}
+			
+        
+         
+            
+            
+            
+            body,input,select
+{
+  font-size: 20pt;
+ text-align:center
+ 
+ 
+}
+#tj{
+  
+  height:70px;
+  width:160px
+   
+}
+
+a{color:#FF0034}
+input[type='button']{
+  height:60px;
+  width:100px;
+ 
+  
+     padding:3px;
+        outline: none;
+        border:none;
+        background: #19a049;
+        color:#fff;
+        width: 150px;
+        border-radius: 6px;
+        cursor: pointer;
+        }
+//#div0
+{
+position:absolute;e
+left:500px;
+top:470px;
+}
+            
+            
+            
+            
+            
+            
+            
+            
+        
+		
+</style>
+
+
+
+
+
+
+  </head>
+  <body onload="bb();yc('div3');yc('div4')"  backcolor=#81FF00>
+
+	<script type="text/javascript" src="1.js" ></script>
+<script>
+//		  	
+
+
+
+
+
+
+
+
+
+var  abs={
+    "bc":"bba",
+    "bb":[
+    {
+        "名称":"凤铝888","价格":"280"
+    },{
+    "名称":"凤铝888A","价格":"320"},
+    {
+    "名称":"纱窗","价格":"120"},
+    {
+    "名称":"窗花","价格":"220"},
+    {
+    "名称":"防盗网6厘","价格":"160"},
+    {
+    "名称":"防盗网8厘","价格":"180"},
+    {
+    "名称":"隐形网","价格":"90"},
+    {
+    "名称":"防盗门","价格":"1300"},
+        {
+    "名称":"衣杆","价格":"50"},
+        {
+    "名称":"纱门","价格":"360"},
+    
+    
+    
+]};
+
+csjg=function  ()
+{
+    
+  
+    
+   csl={//铝窗数据结构
+
+   
+    //检查单选框
+       
+        kd:getid("t1").value,//宽度
+        gd:getid("t2").value,//高度
+        men:getid('men').checked,//门标志
+        sct:false,//上窗头标志
+        xct:false,//下窗头标志
+        sctgd:getid("sctgd").value,//上窗头高度
+        xctgd:getid("xctgd").value ,//下窗头高度       
+        sctgs:getid("zs").value,//上窗头格数
+        xctgs:getid("xzs").value,//上窗头格数
+        cssl:0,//窗扇
+      //  dsc:getid('sha').checked,
+       //带纱窗
+        
+        ys:0,//颜色保留
+        xh:0//型号
+      
+        };//对象数据初始化完成！
+      
+    var zt = document.getElementsByName("cs"); 
+    for(var i=0;i!=zt.length;i++)
+    { 
+    if(zt[i].checked)
+        {
+            csl.cssl=(zt[i].value); 
+         //   alert(csl.cssl);
+        } 
+     }//窗扇数量重置
+       // alert(csl.ss);
+        
+    //型号赋值
+      var x=document.getElementById("xz").selectedIndex;//索引号
+    var y=document.getElementById("xz").options;
+    //csl.xh=(y[x].text);
+ 
+    csl.xh=(y[x].value);
+    
+    //颜色赋值
+    
+    var x=document.getElementById("ys").selectedIndex;//索引号
+    var y=document.getElementById("ys").options;
+    //csl.xh=(y[x].text);
+ 
+    csl.ys=(y[x].value);
+    
+    if( getid('sha').checked){
+        
+         csl.dsc='√';
+    }
+    else{
+        csl.dsc='X';
+    };
+    
+    if( getid('men').checked){
+        
+         csl.men='√';
+    }
+    else{
+        csl.men='X';
+    }
+    
+    
+    csl.sctgd==0?csl.sctgs=0:csl.sctgd;
+    csl.xctgd==0?csl.xctgs=0:csl.xctgd;
+   
+   
+   
+    return csl;//型号选择
+        
+        };
+    
+
+
+function  cljs (cjg) //窗料计算  公式
+{
+    //alert(cjg.gd);
+
+    cl= {//第一种自定义类型 方式
+    
+    //窗框类材料
+    
+        ys:{c:cjg.xh+"/"+cjg.ys,s:0,n:'型号/颜色'},
+        ylt:{c:"",n:'预览图'},
+           
+        bf:{c:cjg.gd,s:1,n:"边封"}, //边封  c尺寸  s数量
+        xh:{c:cjg.kd-30,s:1,n:'下滑'},//下滑
+		
+       // sf:cjg.kd-30
+       // sh:cjg.kd-30//上滑
+       sh:{n:'平上滑'},//上滑
+       sg:{n:'上固'},//上固
+       xsg:{n:'下上固'},
+       gsh:{n:'固上滑'},//固上滑
+       zz:{n:'中柱'},//中柱
+       gb:{n:'盖板'},//盖板
+       xzz:{n:'下中柱'},//下中柱
+       xgb:{n:'下盖板'},//下盖板
+       xhgb:{n:'下滑盖板'},//下滑盖板
+       //窗扇类材料
+       gq:{n:'光企'},//光企
+       goq:{n:'勾企'},//勾企
+       sxf:{n:'上下方'},//上下方)
+       dggb:{n:'短勾盖板',c:0,s:0},
+       
+       scg:{c:0,s:0,n:'纱窗高'},
+       sck:{c:0,s:0,n:'纱窗宽'},
+       scsk:{c:0,s:0,n:"纱窗收口"},
+       //玻璃类材料。。。。。。。
+       sbl:{c:"",b:{k:0,g:0},s:0,n:'扇玻璃'},
+       stbl:{c:"",b:{k:0,g:0},s:0,n:'上固玻璃'},
+       xtbl:{c:"",b:{k:0,g:0},s:0,n:'下固玻璃'}
+	   
+         };
+         
+     //    cl.sh= new cl.xh;
+	 	  if( cjg.xh=="凤铝100F"){
+		 	  cl.xh.c=cl.xh.c-6;
+		 	 }
+	
+		 
+         cl.sh.s=cl.xh.s;
+		 cl.sh.c=cl.xh.c;
+	
+	
+       
+      //   alert(cjg.men);
+        
+         //上头材料计算
+         if (cjg.sctgd>0){
+             cl.sg={c:cl.xh.c,s:1,n:'上固'};
+             cl.gsh.c=cl.xh.c;
+             cl.gsh.s=1;
+             cl.zz.c= cjg.sctgs>1? cjg.sctgd-25:0;
+             cl.zz.s=cjg.sctgs>1? cjg.sctgs-1:0;
+             cl.zz.n='中柱';
+             cl.gb.c=cjg.sctgd-25;
+             cl.gb.s=2;
+             cl.gb.n='盖板';
+             cl.sh.c=0;
+             cl.sh.s=0;
+            
+         //    alert(cl.xh.c);
+         }
+         else{
+             cl.sg.c=0;
+             cl.sg.s=0;
+            
+             cl.gsh.c=0;
+             cl.gsh.s=0;
+             
+             cl.gb.c=0;
+             cl.gb.s=0;
+             
+             cl.zz.c=0;
+             cl.zz.s=0;
+             
+         };
+         
+         //下头材料计算
+         if(cjg.xctgd>0)
+         {
+             cl.xsg={c:cl.xh.c,s:1,n:'下上固'};
+             cl.xhgb={c:cl.xh.c,s:1,n:'下滑盖板'};
+             
+            // cl.xzz={c:cjg.xctgd-25,s:cjg.xctgs-1};
+            //中柱可有可无所以要判断  这里使用三目元运算
+            
+             cl.xzz.c= cjg.xctgs>1? cjg.xctgd-25:0;
+             cl.xzz.s= cjg.xctgs>1? cjg.xctgs-1:0;
+            
+             cl.xgb={c:cjg.xctgd-25,s:2,n:'下盖板'};
+             
+         }
+         else
+         {
+             cl.xsg={c:0,s:0,n:'下上固'};
+             cl.xgb={c:0,s:0,n:'下盖板'};
+             cl.xhgb={c:0,s:0,n:'下横盖板'};
+             cl.xzz={c:0,s:0,n:'下中柱'};
+             
+         };
+         
+         var jw;
+            if( cjg.xh=="凤铝888A"){
+             jw=(cjg.sctgd>0?Number(cjg.sctgd)+65:55);
+             jw=jw+(cjg.xctgd!=0?Number(cjg.xctgd):0);
+             }
+             if( cjg.xh=="凤铝888"){
+             jw=(cjg.sctgd>0?Number(cjg.sctgd)+62:52);
+             jw=jw+(cjg.xctgd!=0?Number(cjg.xctgd):0);
+             }
+             if( cjg.xh=="凤铝85"){
+             jw=(cjg.sctgd>0?Number(cjg.sctgd)+65:55);
+             jw=jw+(cjg.xctgd!=0?Number(cjg.xctgd):0);
+             }
+			    if( cjg.xh=="凤铝100F"){
+             jw=(cjg.sctgd>0?Number(cjg.sctgd)+65:65);	
+             jw=jw+(cjg.xctgd!=0?Number(cjg.xctgd):0);
+             }
+     
+             
+             
+             
+    //     alert(cjg.cssl);
+    
+    
+    var jw3;//上下方减位
+    
+             
+    
+    
+         if(cjg.cssl==2)   //两扇窗上下方减位
+         {
+             if( cjg.xh=="凤铝85"){
+             jw3=20;
+             }
+             if( cjg.xh=="凤铝888A"){
+             jw3=24;
+             }
+             if( cjg.xh=="凤铝888"){
+             jw3=10;
+             }
+			 if( cjg.xh=="凤铝100F"){
+             jw3=-28;
+             }
+       //  alert(jw);
+             cl.gq.c=cjg.gd-jw;
+             cl.gq.s=2;
+			 
+             cl.goq.c= cl.gq.c;
+             cl.goq.s=cl.gq.s;
+           
+            
+             cl.sxf.c=(cjg.kd-jw3)/2;
+             cl.sxf.s=4;
+             
+             cl.sck.c=cl.sxf.c-25;
+             cl.scg.c=cl.gq.c;
+             cl.sck.s=cl.sxf.s/2;
+             cl.scg.s=cl.sxf.s/2;
+             
+              //100f 没有勾企
+			if(cjg.xh=="凤铝100F"){
+			 cl.dggb.c=cl.goq.c;
+			 cl.dggb.s=cl.gq.s;
+			 
+			 cl.gq.s=cl.gq.s*2
+			 
+			 cl.goq.c= 0;
+             cl.goq.s=0;
+			 cl.sck.c=cl.sxf.c;
+			 
+			}
+			
+			
+         }
+         else if(cjg.cssl==4)
+         {
+             if( cjg.xh=="凤铝85"){
+             jw3=19;
+             }
+             if( cjg.xh=="凤铝888A"){
+             jw3=22;
+             }
+             if( cjg.xh=="凤铝888"){
+             jw3=-9;
+             }
+			 if( cjg.xh=="凤铝100F"){
+             jw3=-92;
+             }
+         
+         
+         
+             cl.gq.c=cjg.gd-jw;
+             cl.gq.s=4;
+             
+             cl.goq.c=cl.gq.c;
+             cl.goq.s=cl.gq.s;
+             
+	
+			 
+			 
+			 
+			 
+             cl.sxf.c=(cjg.kd-jw3)/4;
+             cl.sxf.s=8;
+             
+             
+             
+             
+             cl.sck.c=cl.sxf.c-25;
+             cl.scg.c=cl.gq.c;
+             cl.sck.s=cl.sxf.s/2;
+             cl.scg.s=cl.sxf.s/2;
+             cl.scsk.c=cl.scg.c;
+             cl.scsk.s=1;
+          //100f 没有勾企
+		 if( cjg.xh=="凤铝100F"){
+		   cl.sck.c=cl.sxf.c
+		   cl.scg.c=cl.gq.c;
+		   	 cl.gq.s=cl.gq.s*2
+			 cl.goq.c= 0;
+             cl.goq.s=0;
+		   }
+         }
+         
+        if(cjg.men!="X")
+        {
+            cl.xh.c=0;
+            cl.xh.s=0;
+        }
+        
+        if(cjg.dsc!='X')
+        {
+            cl.sck.c=cl.sxf.c;
+            cl.scg.c=cl.gq.c;
+            cl.scg.s=cl.gq.s;
+            cl.sck.s=cl.sxf.s;
+        }
+ //玻璃计算
+         var jw1=70,jw2=83;
+   /*    
+   85
+上下方-70=玻璃
+勾-90=
+
+
+888A
+宽-64
+高-83
+
+888
+上下方-70
+高-83
+         */
+         
+         
+         //扇玻璃计算
+            if(cjg.xh=="凤铝888A"){
+            jw2=83;
+            jw1=64;
+            
+            if(cjg.sctgd>0){
+              
+         cl.stbl.c=  ((((cjg.kd-60)-(25*(cjg.sctgs-1)))/cjg.sctgs)-5)+"*"+(cjg.sctgd-19);
+         cl.stbl.s=cjg.sctgs; 
+          
+          }
+          
+          
+          if(cjg.xctgd>0){
+              
+         cl.xtbl.c=((((cjg.kd-60)-(25*(cjg.xctgs-1)))/cjg.xctgs)-5)+"*"+(cjg.xctgd-19);
+         
+         cl.xtbl.s=cjg.xctgs; 
+          
+          }
+            
+            }//:jw1=83;
+            
+            if(cjg.xh=="凤铝85"){
+            jw2=90;
+            jw1=70;
+            
+            
+            if(cjg.sctgd>0){
+              
+         cl.stbl.c=  ((((cjg.kd-60)-(25*(cjg.sctgs-1)))/cjg.sctgs)-7)+"*"+(cjg.sctgd-17);
+         cl.stbl.s=cjg.sctgs; 
+          
+          }
+          
+          
+          if(cjg.xctgd>0){
+              
+         cl.xtbl.c=((((cjg.kd-60)-(25*(cjg.xctgs-1)))/cjg.xctgs)-7)+"*"+(cjg.xctgd-17);
+         
+         cl.xtbl.s=cjg.xctgs; 
+          
+          }
+            
+            }//:jw1=70;
+            
+            if(cjg.xh=="凤铝888"){
+            jw2=83;
+            jw1=70;
+            
+            
+            if(cjg.sctgd>0){
+              
+         cl.stbl.c=  ((((cjg.kd-60)-(25*(cjg.sctgs-1)))/cjg.sctgs)-7)+"*"+(cjg.sctgd-17);
+         cl.stbl.s=cjg.sctgs; 
+          
+          }
+          
+          
+          if(cjg.xctgd>0){
+              
+         cl.xtbl.c=((((cjg.kd-60)-(25*(cjg.xctgs-1)))/cjg.xctgs)-7)+"*"+(cjg.xctgd-17);
+         
+         cl.xtbl.s=cjg.xctgs; 
+          
+          }
+            }
+			
+			
+			
+			//:jw1=70;
+            
+            cl.sbl.b.g=cl.gq.c-jw2;
+            cl.sbl.b.k=cl.sxf.c-jw1;
+            
+            cl.sbl.c=cl.sbl.b.k+"*"+cl.sbl.b.g;
+            cl.sbl.s=cjg.cssl;
+        
+        //扇玻璃计算
+        
+          
+          
+          
+          
+        
+        
+        
+        
+        
+    return cl;
+};
+        
+        
+        
+        
+        
+var ccc=[];//备份全局,
+function tj()  ///统计数据
+{
+   // alert(aa);
+   // cc.length?cc.push():cc=[];
+//cc=[];
+    // cc=[];//getid("table").tBodies[0];
+  // alert( cc.rows.length);
+  
+ // alert(cc.length);
+//cc.length;//cc全局变量
+//alert(cc.push(1));
+
+  //alert(ccc[0]);
+    var nn=cljs( ccc[0]);
+    
+    nn.ylt.c=ccc[0].ylt;
+ //alert( ccc[ccc.length-1].cssl);
+    
+   var mms=Object.keys(nn);
+ 
+  // alert(mms);
+  
+    var mmd=getid('mmd');
+      
+       if(mmd){
+       
+           var f=mmd.parentNode;
+          
+         f.removeChild(mmd);
+       }
+ 
+    
+     
+    //////////////////////////////
+    
+    
+ var  ctb= document.createElement('table');
+ ctb.setAttribute("id","mmd");
+
+
+ //var  hang=document.createElement('tr');
+// var  hsj=document.createElement('td');
+
+
+ //hsj.innerHTML="预览图";
+ 
+//hang.appendChild(hsj);
+ 
+ var xl=[],xxl=[],ii=0;
+ var row=[];
+ 
+ while(ii!=mms.length)   //生成表格表格  生成15行表格
+     {
+   //  var hengsj=hsj.cloneNode(true);//列数据     td   
+    // var hen=hang.cloneNode(true);//行数据
+ 
+     if(ctb.rows.length!=mms.length){
+         
+     
+ row.push(ctb.insertRow(ii));//添加一行  生成15行表格 并且保存好
+ 
+     };//确保生成15行
+ //alert(row.cells.length);
+ 
+ 
+ var cell1=row[ii].insertCell();//  创建新表格 
+ cell1.innerHTML=nn[mms[ii]].n;//填充第一个15行，也就是标题行
+ //row.insertCell(1);
+// alert(nn[mms[ii]].n);
+//var cell2=row.insertCell(1);
+ 
+ //var cell=[];
+for(var i=0;i!=ccc.length;i++)  //循环创建 窗扇数量的列表格
+{
+   var nn=cljs( ccc[i]);
+   
+    nn.ylt.c=ccc[i].ylt;
+    
+   
+    var cell=(row[ii].insertCell());
+     var txt= nn[mms[ii]].s?"="+nn[mms[ii]].s:'';
+     var c=typeof(nn[mms[ii]].c)=='object'?0:nn[mms[ii]].c;
+ // alert(( typeof(nn[mms[ii]].c)));
+    cell.innerHTML=c+txt;
+}
+ 
+
+
+ 
+ ii++;
+ 
+ 
+
+ 
+ }
+ 
+
+
+// xxl[2].innerHTML=nn.ylt.c;
+ //alert(xxl[2].appendChild(nn.ylt));
+ 
+// xl[5].appendChild(nn.ylt);
+ 
+ 
+  //ctb.appendChild(hang);
+ ctb.border="1";
+ 
+mmd=document.body.appendChild(ctb); 
+
+
+
+
+
+//var tabobj = document.getElementById("ch"); //获取 Table 对象 
+for( var i=0; i<mmd.rows.length;i++) //给单元格添加事件 
+{ 
+mmd.rows[i].onclick=function(){
+
+   
+    //   row1=mmd.insertRow(i+1);
+     //  row1.innerHTML="dddddddddd";
+        
+//document.getElementById("txtping").value = this.innerText;
+
+
+
+}; //取值 
+mmd.rows[i].onmouseover=function(){this.style.background="#ffffff";}; //行变色 
+mmd.rows[i].onmouseout=function(){this.style.background="";
+
+
+
+//mmd.deleteRow(i+1);
+}; 
+mmd.rows[i].style.cursor="pointer"; 
+} 
+
+    
+ var bz=false,ch=[];
+
+     o=0;bt=1;
+     
+     
+     while( o!=mmd.rows.length)
+         {
+         
+     for(var i=1;i!=row[o].cells.length;i++)
+     {
+     if(  Number(mmd.rows[o].cells[i].innerHTML)==0 )
+     {
+         bt++;
+         mmd.rows[o].cells[i].innerHTML="";
+         if(bt==mmd.rows[o].cells.length)
+         {
+            
+             mmd.deleteRow(o);
+             --o;
+    
+             
+         }
+		 
+     }
+        
+ }
+     bt=1;
+     o++;
+//alert(o);
+ }
+ 
+ 
+ //}
+  
+ 
+ 
+ 
+ 
+ };
+ 
+ 
+/*
+
+ list.getElementsByTagName("LI")[0].innerHTML="Milk";
+
+
+ element.appendChild()   为元素添加一个新的子元素
+
+ setAttribute() 方法创建或改变某个新属性。
+ 如果指定属性已经存在,则只设置该值。
+
+ function myFunction(){
+ document.getElementsByTagName("INPUT")[0].setAttribute("value","button"); 
+ };
+
+ 定义和用法
+ getAttributeNode() 方法从当前元素中通过名称获取属性节点。
+ 提示：如果你仅想返回属性值请使用 getAttribute 方法。
+
+
+
+ 改变现有属性
+ HTML DOM setAttribute() 方法
+
+
+ <p id="demo">单击按钮，查看按钮元素有多少个属性：</p>
+ <button onclick="myFunction()" id='X123'>点我</button>
+ <script>
+ function myFunction(){
+ var btn=document.getElementsByTagName("BUTTON")[0];
+ var x=document.getElementById("demo");  
+ alert('123');
+ btn.attributes[1].value="Ff"
+ alert(btn.attributes[1].)
+ x.innerHTML=btn.attributes.length;
+ */
+
+
+
+ 
+
+
+
+
+function uqk()   //删除表格
+{
+    
+    ccc=[];
+        otbod = document.getElementById('table1').tBodies[0];//tBodies   返回包含表格中所有 tbody 的一个数组。 
+       
+        
+        
+        var mmd=getid('mmd');
+       
+       if(mmd){
+       
+           var f=mmd.parentNode;
+        
+         f.removeChild(mmd);
+       }
+        
+        
+        
+    var s=otbod.rows.length; //返回包含表格中所有行的一个数组。
+     for(var i=0;i<s;i++)
+        {
+    
+            otbod.removeChild(otbod.rows[0]);// 删除一个子元素  
+        }
+  
+}
+
+
+
+
+
+function Qk() {//清空输入框
+
+    document.getElementById("cskd").value = "";
+    document.getElementById("csgd").value = "";
+    document.getElementById("cd").value = "";
+    document.getElementById("sl").value = "";
+
+    document.getElementById("p3").innerHTML = "";
+
+
+
+
+
+}
+
+
+function bb() {
+
+    //var js2=$("#t1").html();
+    //$("#p3").text(js2);
+
+    //var b,c;
+    //c=0;
+    //b=b-(c-$("#t1").val());
+
+
+    //alert(b)
+
+
+    var ms,mc,md,mss; 
+    ms = document.getElementById("cd").value;
+    mc = document.getElementById("sl").value;
+
+    if (ms <= 0)
+    {
+
+        return;
+
+    }
+
+
+
+   var msc=(Number(ms) -25)/2;
+    md = Number(mc) * 25;//s数量*25   3*25=75
+    ms = Number(ms) - 30 - md;//长度-30-75
+    mc++;   //格数
+    ms = ms / mc; //类型转换    实际尺寸/格数
+    //eval()
+    mss = ms + 15
+        --mc;
+
+    if (mc>1)
+    {
+        
+          
+        ddc = ("第一格为" + mss + "第二格为" + ms+"分中"+msc);}
+
+        
+      //  if(mc!=3){
+      //  ddc = ("第一格为" + mss + "第二格为" + ms);}
+
+        
+        
+        
+        
+    else
+    {
+
+        ddc = ("第一格为" + mss);
+
+    }
+
+    document.getElementById("cd").focus();
+
+
+    document.getElementById("p3").innerHTML = ddc;
+    //<input type="text"/>
+    document.getElementById("p3").style.color = "red";
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getid (id){
+
+return document.getElementById(id);
+}
+   
+function csjs() {  //窗扇大小算出玻璃
+
+
+    var kd,gd,md,mss; 
+    kd = document.getElementById("cskd").value;
+    gd = document.getElementById("csgd").value;
+
+    
+    kd = kd - 64;
+    gd = gd - 83;
+
+    document.getElementById("p4").innerHTML = ("玻璃宽度  " + kd + "  玻璃高度  " + gd);
+
+document.getElementById("p4").style.color = "red";
+}
+
+function add(uid ,vl)//中柱数量＋
+ {
+ vl=(vl!=null?vl:1);
+ vl=Number(vl);
+    var b=document.getElementById(uid).value;
+    
+    b=Number(b);
+    
+   
+if (b!=-1){
+    document.getElementById(uid).value = b+vl;
+
+    }
+    
+
+
+}
+
+
+function cc(tid,vl)//中柱数量－
+ {
+ vl=(vl!=null?vl:1);
+ 
+    var b=document.getElementById(tid).value;
+    
+
+if (b!=0){
+    document.getElementById(tid).value = b-vl;
+
+    }
+}
+
+
+
+
+
+
+function cr(value) {
+    return(value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g, '')
+        );}
+
+function jazai() {//添加要计算材料的尺寸
+
+	var btn=document.createElement("input");
+    btn.type = "button";
+    btn.value = "553";
+	//v=	document.body.appendChild(btn);
+
+
+    
+	var c=document.getElementById("myCanvas");
+  
+
+    //隐藏和显示节点
+//当style.display="block"或style.visibility="visible"时控件或见
+//当style.display="none"或style.visibility="hidden"时控件不可见。
+    c.style.display = "none";//隐藏画布
+
+/*
+  var ad=[];
+       var i=( ad.push(csjg()));
+      //  ad[i-1].kd=1000;
+        ad.length;
+        
+       alert(ad[i-1].kd);
+        ad.push(1);
+        alert(ad[i-1].men);
+        
+        */
+       
+        var sj=csjg();//初始化窗扇结构数据
+        
+
+   //   alert(sj.cssl);
+     
+      //  alert(sj.kd);
+     
+     
+    var ctx=c.getContext("2d");
+    ctx.clearRect(0,0,c.width,c.height);//清空画布 清理原来的图画 要不然会重影
+    
+    ctx.beginPath();
+    ctx.strokeStyle = "red"; 
+    ctx.rect(20, 1, 150, 150);//画矩形
+
+//画窗头部分
+
+    var ct =sj.sctgs,xct=sj.xctgs;//窗头格数赋值
+    
+    
+    
+    if (ct>0)
+    {
+        ctx.moveTo(20, 40);//移动笔头
+        ctx.lineTo(150 + 20, 40);//画线
+
+        //画窗上头格数 
+        var gs;
+        
+        gs = sj.sctgs;
+        
+   //     alert(sj.cssl);
+        for (var o=1; o < gs ;o++)
+        {
+            var jk =150 / gs;  //矩形的宽度除格数
+
+            ctx.moveTo(jk * o + 20, 0);//20是画布到矩形边的尺寸
+            ctx.lineTo(jk * o + 20, 40);
+        }
+
+    }
+    if (xct>0)
+    {
+    
+        ctx.moveTo(20, 150-40);//移动笔头
+        ctx.lineTo(150 + 20, 150-40);//画线
+
+        //画窗下头格数 
+        
+     var   gs =sj.xctgs;
+ //    alert(gs);
+    //    alert(sj.xctgs);
+        for (var o=1; o < gs ;o++)
+        {
+            var jk =150 / gs;  //矩形的宽度除格数
+
+            ctx.moveTo(jk * o + 20, 150-40);//20是画布到矩形边的尺寸
+            ctx.lineTo(jk * o + 20, 150);
+        }
+
+    
+    }
+
+
+
+//   画窗扇格数
+
+    //ss = 4;
+var wzh=0,xwzh=150 ,ss=sj.cssl;
+
+    for (var o=1; o < ss ;o++)
+    {
+        var jk =150 / ss;  //矩形的宽度除格数
+        if (ct>0)
+        { 
+        wzh=40;
+        }
+        
+        if(sj.xctgs)
+        {
+        
+        if(xct>0){
+        xwzh=150-40;
+        }
+        else{
+        
+        xwzh=150;
+        }
+        
+        
+        }
+        ctx.moveTo(jk * o + 20, wzh);//20是画布到矩形边的尺寸
+       ctx.lineTo(jk * o + 20, xwzh);
+    };
+//   
+    //  ctx.moveTo(((170+20)/2),40);
+    //  ctx.lineTo(((170+20)/2),150)
+    
+    
+    ctx.stroke();//生成
+//alert(123);
+
+//var ctx = document.getElementByIdx_x('myCanvas').getContext("2d"); 
+//？写高度字
+    ctx.save(); //保存画布状态
+
+    ctx.translate(0, 0); 
+    ctx.rotate(90 * Math.PI / 180); //旋转画布
+    //ctx.strokeStyle = "red"; //设置颜色
+    ctx.font = "15px Arial";
+    ctx.fillStyle = "red";
+    
+    if (ct>0)
+    {
+    ctx.fillText("头"+document.getElementById("sctgd").value, 0, -175);
+    }
+    if(xct>0)
+    {
+    ctx.fillText("头"+document.getElementById("xctgd").value, 150-40, -175);
+    
+    }
+    ctx.measureText("高"+document.getElementById("t2").value).width;
+    //ctx.strokeText("高2012",((150-ctx.measureText("高2010").width)/2),-5);
+    //空心字可填充 
+    ctx.fillText("高"+document.getElementById("t2").value, ((150 - ctx.measureText("高"+document.getElementById("t2").value).width) / 2), -5);
+    //dot(ctx); 
+    ctx.restore();//恢复画布状态
+
+
+    //写宽度字
+     
+    
+
+    ctx.font = "15px Arial";
+    ctx.fillStyle = "red";
+//alert(ctx.measureText("宽2400").width);//取文本显示宽度
+
+
+
+var text1="";
+if (sj.men=='√'){
+
+text1="门";
+
+
+ctx.clearRect(0,150,170,150);//清空地横线
+
+}
+if(sj.dsc=='√')
+{
+text1=text1+"带纱窗";
+}
+
+    ctx.fillText("宽"+getid("t1").value +" "+text1, (190 - ctx.measureText("宽"+getid("t1").value+" "+text1).width) / 2, 170);  //失心字
+
+
+    
+    var ing=  document.createElement("img") ; 
+    ing.src = c.toDataURL("image/jpg");  
+    
+    sj.ylt= "<img src="+ing.src+">";
+    ;//储存预览图
+  
+ //sj=csjg(sj.ylt);
+  var pp=  ccc.push(sj);//备份一份留存统计使用
+    //alert(ccc[pp-1].ylt.src);
+   // alert( c.toDataURL("image/jpg"));
+    
+
+    //ing.src=mms(  document.getElementById("Fl").value);  
+
+    //    document.body.appendChild(ing);
+    // var w=window.open('about:blank','image from canvas');  
+    // w.document.write("<img src='"+image+"' alt='from canvas'/>");
+
+    //ctx.strokeStyle = "red";
+//			ctx.font="30px Arial"
+    //	ctx.strokeText("2012",100,110);
+
+
+    
+    //生成表格
+  //  for (var r=0;r < (1);r++)
+   // {
+        //json两种访问模式
+        //alert(abs.bb[r].名称);
+        //      alert("价格:"+abs["bb"][r]["价格"]);
+        //alert(ab[]s.bb.length)
+
+        //      a["list"][q]['数据id'];
+        
+ 
+        otbod = document.getElementById('table1').tBodies[0];//tBodies   返回包含表格中所有 tbody 的一个数组。 
+       // uqk();//清空表格
+        
+        var otr=document.createElement('tr');//添加一行
+        
+        var otd00=document.createElement('td');
+        var otd0=document.createElement('td');
+        var otd1=document.createElement('td');//存放宽度
+        var otd2=document.createElement('td');//存放高度
+        var otd3=document.createElement('td');//存放上窗头高度
+       var otd4=document.createElement('td');
+        var otd5=document.createElement('td');
+       var otd6=document.createElement('td');
+       var otd7=document.createElement('td');
+       var otd8=document.createElement('td');
+       var otd9=document.createElement('td');
+        
+        
+        
+      
+
+        
+        otd2.innerHTML=getid("t1").value;
+        otd3.innerHTML=getid("t2").value;
+        otd4.innerHTML=sj.sctgd;
+        otd5.innerHTML=sj.xctgd;
+        otd6.innerHTML=sj.sctgs;
+        otd7.innerHTML=sj.xctgs;
+        otd8.innerHTML=sj.men;
+        otd9.innerHTML=sj.dsc;
+        otd0.innerHTML=sj.xh;
+        otd00.innerHTML=sj.ys;
+    //    otd1.innerHTML = abs["bb"][r]['名称'];
+  //      otd2.innerHTML = abs["bb"][r]['价格'];
+  
+        otd1.innerHTML=(sj.ylt);//innerHTML = "<img src=" + ing.src + ">";
+        //  alert(ing.src);
+        //   otd3.appendChild(ing);
+        //  otd3.appendChild(ing);
+        otr.appendChild(otd0);
+        otr.appendChild(otd00);
+        otr.appendChild(otd1);
+        otr.appendChild(otd2);
+        otr.appendChild(otd3);
+        otr.appendChild(otd4);
+        otr.appendChild(otd5);
+        otr.appendChild(otd6);
+        otr.appendChild(otd7);
+        otr.appendChild(otd8);
+        otr.appendChild(otd9); 
+    //    var aa=1;
+ //     aa==1?alert(aa):alert(2); //三目原运算
+       
+
+        
+
+        otbod.appendChild(otr);
+
+       
+       
+        for( var i=0; i<otbod.rows.length;i++) //给单元格添加事件 
+{ 
+//mmd.rows[i].onclick=function(){document.getElementById("txtping").value = this.innerText;}; //取值 
+otbod.rows[i].onmouseover=function(){this.style.background="#ffffff";}; //行变色 
+otbod.rows[i].onmouseout=function(){this.style.background="";}; 
+otbod.rows[i].style.cursor="pointer"; 
+} 
+
+
+    //}
+    
+    
+    
+    
+
+	//生成表格
+  /* for (var r=0;r < (abs.bb.length);r++)
+    {
+        //json两种访问模式
+        //alert(abs.bb[r].名称);
+		//		alert("价格:"+abs["bb"][r]["价格"]);
+        //alert(ab[]s.bb.length)
+
+        //		a["list"][q]['数据id'];
+		var otr=document.createElement('tr');
+	    var otd1=document.createElement('td');
+	    var otd2=document.createElement('td');
+		var otd3=document.createElement('td');
+
+	    otd1.innerHTML = abs["bb"][r]['名称'];
+	    otd2.innerHTML = abs["bb"][r]['价格'];
+	    otd3.innerHTML = "<img src=" + ing.src + ">";
+        //  alert(ing.src);
+        //   otd3.appendChild(ing);
+        //  otd3.appendChild(ing);
+	    otr.appendChild(otd1);
+	    otr.appendChild(otd2);
+	    otr.appendChild(otd3);
+
+	    otbod.appendChild(otr);
+
+		//	alert(otr.innerHTML)
+
+
+    }   */
+    
+    
+    
+};
+
+
+
+    /*function drawBowtie(ctx, fillStyle) { 
+
+     ctx.fillStyle = fillStyle; 
+     ctx.beginPath(); 
+     ctx.moveTo(25, 25); 
+     ctx.lineTo(-25, -25); 
+     ctx.lineTo(25, -25); 
+     ctx.lineTo(-25, 25); 
+     ctx.closePath(); 
+     ctx.strokeText("2012",-15,5);
+     ctx.fill(); 
+
+     }*/
+    /*function dot(ctx) { 
+     ctx.save(); 
+     ctx.fillStyle = "black"; 
+     ctx.fillRect(-2, -2, 4, 4); 
+     ctx.restore(); 
+     } */
+    
+     
+     
+     function dc (){
+         
+     
+  //  window.open("data:text/html,HTML代码");
+ 
+ 
+  //alert(URL);
+ 
+//<img src="t_screenshot_17616.jpg" id="DemoImg" border="0" onclick="SaveAs5(this.src)">
+     
+
+    /*    localStorage.length：获取存储的记录条数
+localStorage.key(0)：获取索引为0这一项的KEY是什么
+localStorage.setItem('age',7);
+localStorage.getItem('age');
+localStorage.removeItem('age');
+localStorage.clear();*/
+
+/*   创建下载
+function downloadFile(fileName, content){
+    var aLink = document.createElement('a');
+    var blob = new Blob([content]);
+    var evt = document.createEvent("HTMLEvents");
+    evt.initEvent("click", false, false);//initEvent 不加后两个参数在FF下会报错, 感谢 Barret Lee 的反馈
+    aLink.download = fileName;
+    aLink.href = URL.createObjectURL(blob);
+    aLink.dispatchEvent(evt);
+}
+
+downloadFile("ja.txt","heihui");
+
+
+*/
+
+
+
+
+ otbod = document.getElementById('table1').tBodies[0];
+ if(otbod.rows.length){
+   
+ 
+ //localStorage.clear();
+      var a=getid("table1").innerHTML;
+       
+       //localStorage.setItem(key,value);
+     var Fname= "txt"+( localStorage.length);
+       localStorage.setItem(Fname,a);
+       alert("保存成功");
+      // localStorage.setItem
+      // var m=localStorage.getItem("txt");
+           //  localStorage.getItem(key);
+          
+        //localStorage.clear();
+        
+        
+       // for(var i=localStorage.length - 1 ; i >=0; i--){
+//alert('第'+ (i+1) +'条数据的键值为：' + localStorage.key(i) +'，数据为：' + localStorage.getItem(localStorage.key(i)));
+//}
+        
+        
+        
+     return;
+     }
+     
+     
+     alert("没有数据怎么保存");
+     
+     }
+     function dr()
+     {
+     
+     if (localStorage.length){
+     
+     var m=localStorage.getItem( localStorage.key(localStorage.length-1));
+   //  var m=localStorage.getItem("txt");
+    // alert(m);
+     getid("table1").innerHTML=m;
+     }
+     }
+     
+
+function yc(strid) {
+/*
+// Check for the various File API support.
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+  // Great success! All the File APIs are supported.
+} else {
+  alert('The File APIs are not fully supported in this browser.');
+}
+*/
+
+    if (document.getElementById(strid).style.display == 'none')
+    {
+        document.getElementById(strid).style.display = 'block';
+    }
+    else
+    {document.getElementById(strid).style.display = 'none';
+    }
+
+}
+
+
+
+</script>
+<h2>
+    <a href="JavaScript:yc('div4'); ">窗扇玻璃计算</a>
+    <a href="JavaScript:yc('div2') ;yc('div1'); ">铝材开料计算</a>
+    <a href="JavaScript:yc('div3'); ">中柱格数计算</a>
+    
+</h2>
+<p>
+<h3 id="xx" style="color:#386A00">
+   by:Sen
+  </h3>
+<h3>
+	<div id="div2" style="display=none">
+<hr>
+<form>
+  <fieldset id="xxct">
+    
+    
+    
+    <legend>材料计算</legend>
+  型号: 
+	  <select id="xz" name="cars">
+		<option value="凤铝888">凤铝888</option>
+		<option value="凤铝85">凤铝85</option>
+		<option value="凤铝888A" >凤铝888A</option>
+		<option value="凤铝85A">凤铝85A</option>
+		<option value="凤铝100F"selected="selected" >凤铝100F</option>
+	  </select>
+    颜色: 
+    <select id="ys" name="cars">
+      <option value="磨砂">磨砂</option>
+      <option value="白色">白色</option>
+      <option value="砂灰" selected="selected">砂灰</option>
+      <option value="香槟色">香槟色</option>
+      <option value="墨绿色">墨绿色</option>
+      <option value="金色">金色</option>
+    </select>
+      
+<p>
+      
+窗扇数
+&nbsp; &nbsp;   2扇窗<input type="radio" name="cs" value="2" checked=1/> 
+&nbsp; &nbsp;   4扇窗<input type="radio" name="cs" value="4"/>
+&nbsp; &nbsp;   6扇窗<input type="radio" name="cs" value="6"/>
+      
+<p>
+门  <input type="checkbox" id="men" >
+带纱窗<input type="checkbox" id="sha">
+
+
+<div id="div1">
+
+
+  <p id="p1">宽度<input id="t1" type="number" name="fname" value="1000" /></p>
+  <p id="p2">高度<input id="t2" type="number" name="lname" value="1000" /></p>
+  <input id="an" type="button" value="添加" onclick="jazai()"/>
+
+
+</div>
+<div id="div0">
+  <p>上窗头高度:&nbsp;
+  <input id="sctgd" type="number"  value="0">&nbsp;
+  <input type="button" value="+"  onclick="add('sctgd',50)">&nbsp;
+  <input type="button"  onclick="cc('sctgd',50)" value="-">
+  
+  <p>下窗头高度:&nbsp;
+  <input id="xctgd" type="number"  value="0">&nbsp;
+  <input type="button" value="+"  onclick="add('xctgd',50)">&nbsp;
+  <input type="button"  onclick="cc('xctgd',50)" value="-">
+  
+  
+  <p>上窗头格数:&nbsp;
+  <!--     一格<input type="radio" name="gs" value="1">   -->
+  <input id="zs" type="number" value="1"> &nbsp;
+  <input type="button" value="+"  onclick="add('zs')">&nbsp;
+  <input type="button"  onclick="cc('zs')" value="-">
+  <p>
+  下窗头格数:&nbsp;
+       <!--     一格<input type="radio" name="gs" value="1">   -->
+  <input id="xzs" type="number"  value="1"> &nbsp;
+  <input type="button" value="+"  onclick="add('xzs')"> &nbsp;
+  <input type="button"  onclick="cc('xzs')" value="-">
+     
+      
+</div>
+<p>
+</fieldset>
+</form>
+</div>
+<p>
+<div id="my">
+
+<input id="tj"    type="button"   value="保存列表"  onclick="dc()" >
+  <input id="tj"    type="button"   value="载入列表"  onclick="dr()" >
+  <p>
+  <input id="tj"    type="button"   value="统计列表"  onclick="tj()" >
+</div>
+  <hr>
+  <div  style="margin:0 auto; width: 10 px;" > 
+    <table  border="1" align="center">
+      <tbody>
+        <tr><td><a href="javascript:jazai();">加载数据</a></td> <td><a href="JavaScript:uqk();">清除数据</a></td>
+        </tr>       
+      </tbody>
+
+    </table>
+    <table  border="1" id="table1"  align="center" >
+      <thead>
+        <tr id="ylt"> <td>型号</td>   <td>颜色</td> <td>预览图</td><td>宽</td><td>高</td> <td>上窗头高</td>   <td>下窗头高</td>  <td>下窗头格</td>   <td>下窗头格</td>    <td>门</td> <td>纱窗</td></tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+<!--<table border="1"  id="tjb">
+  <tr><td id="ww"  colspan='2'>123</td><td>177444</td></tr>
+  
+  
+  <tr><td>12254</td><td>ssssssw</td></tr>
+    
+  <tr><td>ssss</td></tr>
+  <tr><td>123</td></tr>
+</table>
+-->
+    <canvas id="myCanvas" width="190" height="180" style="border:0px solid #d3d3d3;">
+
+    </canvas>
+
+  </div>
+    <div id="div3"> 
+      <hr>
+      中柱格式计算
+
+	  <p id="p">长度<input id="cd" type="number" name="fname" value=3700 /></p>
+	  <p id="sp">中柱数<input id="sl" type="number" name="lname" value=3 /> 
+	  </p>
+
+	  <input id="add" type="button" value="+" onclick="add('sl')"/>
+	  <input id="sub" type="button" value="-" onclick="cc('sl')"/>
+	  <input id="an" type="button" value="计算" onclick="bb()"/>
+	  <input id="an" type="button" value="清空" onclick="Qk()"/>
+	  <p id="m">计算结果:</p><p id="p3"></p>
+
+	  <input type="file" id="Fl">
+    </div>
+    <div id="div4">
+	  <p>
+        <hr>
+      <a>窗扇玻璃计算</a>
+
+        <p id="p">窗扇宽度<input id="cskd" type="number"  value="752" onkeyup="value = cr(value)"/></p>
+	  <p id="sp">窗扇高度<input id="csgd" type="number"  value="1042" onkeyup="value = cr(value)"/></p>
+	  <input id="an" type="button" value="计算" onclick="csjs()"/>
+	  <input id="an" type="button" value="清空" onclick="Qk()"/>
+	  <p id="m">计算结果:</p><p id="p4"></p>
+
+    </div>
+    
+
+  </h3></body>
+
+
+</html>
+
